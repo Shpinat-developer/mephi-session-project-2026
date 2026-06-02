@@ -1,0 +1,65 @@
+== ОБОСНОВАНИЕ ==
+
+## pam_listfile.so
+Стандартный модуль из пакета `libpam-modules`, проверяющий имя
+пользователя против внешнего файла со списком. Подключён в двух
+конфигурациях: `/etc/pam.d/sshd` (вход по SSH) и `/etc/pam.d/login`
+(локальная консоль). Список запрещённых пользователей вынесен в
+отдельный файл `/etc/ssh/denied_users`, что позволяет управлять
+доступом декларативно — через системы конфигурации (Ansible,
+Puppet) и без правки сервисных конфигов.
+
+## Проверка
+Тесты ниже выполнены в обе стороны: попытка входа под root
+отбивается PAM с `Permission denied`, тогда как `mephi-admin`
+успешно проходит аутентификацию.
+
+== ВЫВОД КОМАНД ==
+
+=== curl http://192.168.91.100/ ===
+*   Trying 192.168.91.100:80...
+* Connected to 192.168.91.100 (192.168.91.100) port 80
+> GET / HTTP/1.1
+> Host: 192.168.91.100
+> User-Agent: curl/8.5.0
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Server: nginx/1.24.0 (Ubuntu)
+< Date: Tue, 02 Jun 2026 20:45:59 GMT
+< Content-Type: text/html
+< Content-Length: 30
+< Last-Modified: Tue, 02 Jun 2026 20:45:59 GMT
+< Connection: keep-alive
+< ETag: "6a1f4107-1e"
+< Accept-Ranges: bytes
+< 
+{ [30 bytes data]
+* Connection #0 to host 192.168.91.100 left intact
+Hello from Student: М2551151
+
+
+=== curl http://localhost/ ===
+* Host localhost:80 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:80...
+* Connected to localhost (::1) port 80
+> GET / HTTP/1.1
+> Host: localhost
+> User-Agent: curl/8.5.0
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Server: nginx/1.24.0 (Ubuntu)
+< Date: Tue, 02 Jun 2026 20:45:59 GMT
+< Content-Type: text/html
+< Content-Length: 30
+< Last-Modified: Tue, 02 Jun 2026 20:45:59 GMT
+< Connection: keep-alive
+< ETag: "6a1f4107-1e"
+< Accept-Ranges: bytes
+< 
+{ [30 bytes data]
+* Connection #0 to host localhost left intact
+Hello from Student: М2551151

@@ -1,0 +1,38 @@
+services:
+  mephi:
+    build: .
+    image: mephi-2026:latest
+    container_name: mephi-2026
+    hostname: mephi-2026.domain.local
+    privileged: true
+    cgroup: host
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    stop_signal: SIGRTMIN+3
+    stop_grace_period: 10s
+    volumes:
+      - ./shared:/shared
+      # content/ монтируется поверх образа, чтобы можно было править текст
+      # rationale-блоков без ребилда. При отсутствии (например, при `docker run`
+      # без compose) используется версия, скопированная в образ из Dockerfile.
+      - ./content:/opt/mephi-content:ro
+    tmpfs:
+      - /run
+      - /run/lock
+    networks:
+      mephi_net:
+        ipv4_address: 192.168.91.100
+    dns:
+      - 8.8.8.8
+    ports:
+      - "8080:80"
+    command: /sbin/init
+
+networks:
+  mephi_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.91.0/24
+          gateway: 192.168.91.1

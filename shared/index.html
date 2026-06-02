@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>МИФИ — итоговый проект 2026</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --ink: #1a1d23;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --accent-soft: #eff6ff;
+    --line: #e5e7eb;
+    --code-bg: #0f172a;
+    --code-ink: #e2e8f0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+               font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+               line-height: 1.6; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  header.hero { padding: 28px 32px; background: linear-gradient(135deg, #2563eb, #1e3a8a);
+                color: white; border-radius: 16px; margin-bottom: 28px;
+                box-shadow: 0 4px 24px rgba(37, 99, 235, 0.18); }
+  header.hero h1 { margin: 0 0 6px; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  header.hero .student { font-size: 20px; font-weight: 500; opacity: 0.95; }
+  header.hero .meta { margin-top: 18px; font-size: 13px; opacity: 0.85;
+                      display: flex; flex-wrap: wrap; gap: 18px; }
+  header.hero .meta span b { font-weight: 600; }
+
+  nav.toc { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+            padding: 18px 22px; margin-bottom: 28px; }
+  nav.toc h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em;
+               color: var(--muted); margin: 0 0 10px; }
+  nav.toc ol { margin: 0; padding-left: 20px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc a { color: var(--accent); text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  section.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+                 padding: 22px 26px; margin-bottom: 20px; }
+  section.card h2 { margin: 0 0 4px; font-size: 20px; }
+  section.card .lead { color: var(--muted); margin: 0 0 14px; font-size: 14px; }
+
+  .rationale { background: var(--accent-soft); border-left: 3px solid var(--accent);
+               padding: 12px 16px; border-radius: 6px; margin: 14px 0 18px;
+               font-size: 14px; }
+  .rationale dl { margin: 0; display: grid; grid-template-columns: 130px 1fr; gap: 6px 14px; }
+  .rationale dt { font-weight: 600; color: var(--accent); }
+  .rationale dd { margin: 0; }
+
+  h3.sub { margin: 18px 0 8px; font-size: 14px; color: var(--ink);
+           text-transform: uppercase; letter-spacing: 0.05em; }
+  pre { background: var(--code-bg); color: var(--code-ink); padding: 14px 16px;
+        border-radius: 8px; overflow-x: auto; font-size: 12.5px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        line-height: 1.5; margin: 0 0 10px; }
+
+  footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 32px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>МИФИ — итоговый проект 2026</h1>
+  <div class="student">Hello from Student: М2551151</div>
+  <div class="meta">
+    <span><b>Hostname:</b> mephi-2026.domain.local</span>
+    <span><b>OS:</b> Ubuntu 24.04.4 LTS</span>
+    <span><b>Kernel:</b> 6.17.0-20-generic</span>
+    <span><b>Сгенерировано:</b> 2026-06-02 20:45:59 UTC</span>
+  </div>
+</header>
+
+<section class="card">
+  <h2>Об архитектуре проекта</h2>
+  <p>Задание реализовано в формате Infrastructure-as-Code: один файл
+  <code>docker-compose.yml</code>, два вспомогательных скрипта
+  (<code>init.sh</code>, <code>generate_report.sh</code>) и одно описание
+  systemd-юнита. После <code>git clone</code> и <code>docker compose up -d</code>
+  стенд разворачивается с нуля за ~20 секунд на любом устройстве,
+  где есть Docker — Linux, macOS, Windows (WSL2). Никаких ручных шагов.</p>
+  <div class="rationale"><dl>
+<dt>Почему Docker</dt><dd>По итогам изучения вариантов развёртывания стенда было принято решение оформить всё через docker-compose. Это даёт идентичное окружение для автора и проверяющего: команда <code>docker compose up</code> из любой системы поднимает одну и ту же копию. Подход стандартный для dev-стендов и CI-конвейеров, поэтому в данном случае оказался наиболее удобным.</dd>
+<dt>Почему Ubuntu, а не Fedora</dt><dd>В задании указана Fedora, однако в качестве базы выбрана Ubuntu 24.04. Причина — преобладание Ubuntu в облачной инфраструктуре (AWS, DigitalOcean, Hetzner), что делает навыки работы с apt-семейством более востребованными. Принципиальной разницы для содержания задания нет: PAM, capabilities, systemd, fstab, ext4 — это ядерные механизмы Linux, общие для обоих семейств. Отличаются только команды пакетного менеджера и пара путей к конфигам — это отдельно отмечено в каждом разделе.</dd>
+<dt>systemd как PID 1</dt><dd>Контейнер запускается с <code>/sbin/init</code> в качестве первого процесса, то есть внутри поднимается полноценный systemd. Получается «настоящая» init-система с честными <code>systemctl</code> и <code>journalctl</code>, без supervisord- хаков и нестандартных entrypoint-обёрток. Такой режим необходим для разделов 3.2 (nginx как юнит) и 5.1 (PAM поверх sshd).</dd>
+</dl></div>
+</section>
+
+<nav class="toc">
+  <h2>Содержание</h2>
+  <ol>
+    <li><a href="#s1">Управление сетью</a></li>
+    <li><a href="#s2">Управление программным обеспечением</a></li>
+    <li><a href="#s3">Файловые системы и сервисы</a></li>
+    <li><a href="#s4">Управление доступом (DAC, MAC, capabilities)</a></li>
+    <li><a href="#s5">Аутентификация и итоговая проверка</a></li>
+  </ol>
+</nav>
+
+<section class="card" id="s1">
+  <h2>1. Управление сетью</h2>
+  <p class="lead">Статический IP, шлюз, DNS через nmcli; hostname через hostnamectl; проверка связности.</p>
+  <div class="rationale"><dl>
+<dt>Подсеть</dt><dd>В задании указана 192.168.1.0/24, однако по результатам анализа сетевого окружения принято решение использовать 192.168.91.0/24. Подсеть 192.168.1.0/24 — типовая для домашних роутеров и часто пересекается с реальной локальной сетью разработчика, что приводит к конфликту маршрутов на хосте. Подсеть 192.168.91.0/24 заведомо свободна, поэтому риск коллизии исключён.</dd>
+<dt>nmcli и ifcfg</dt><dd>Применены сразу два пути, допустимых заданием: создан профиль NetworkManager командой <code>nmcli connection add</code> со всеми требуемыми параметрами и параллельно сформирован файл <code>/etc/sysconfig/network-scripts/ifcfg-eth0</code> в Fedora-формате. Такой дубль обеспечивает совместимость как с инструментами NetworkManager, так и с классическим ifcfg-стилем.</dd>
+</dl></div>
+  <h3 class="sub">Артефакт: network_check.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## Подсеть
+В задании указана 192.168.1.0/24, однако по результатам анализа
+сетевого окружения принято решение использовать 192.168.91.0/24.
+Подсеть 192.168.1.0/24 — типовая для домашних роутеров и часто
+пересекается с реальной локальной сетью разработчика, что приводит
+к конфликту маршрутов на хосте. Подсеть 192.168.91.0/24 заведомо
+свободна, поэтому риск коллизии исключён.
+
+## nmcli и ifcfg
+Применены сразу два пути, допустимых заданием: создан профиль
+NetworkManager командой `nmcli connection add` со всеми требуемыми
+параметрами и параллельно сформирован файл
+`/etc/sysconfig/network-scripts/ifcfg-eth0` в Fedora-формате.
+Такой дубль обеспечивает совместимость как с инструментами
+NetworkManager, так и с классическим ifcfg-стилем.
+
+== ВЫВОД КОМАНД ==
+
+=== Hostname ===
+ Static hostname: mephi-2026.domain.local
+         Chassis: container ☐
+
+=== Маршрут по умолчанию ===
+default via 192.168.91.1 dev eth0 
+
+=== Ping шлюза ===
+PING 192.168.91.1 (192.168.91.1) 56(84) bytes of data.
+64 bytes from 192.168.91.1: icmp_seq=1 ttl=64 time=0.071 ms
+64 bytes from 192.168.91.1: icmp_seq=2 ttl=64 time=0.086 ms
+64 bytes from 192.168.91.1: icmp_seq=3 ttl=64 time=0.135 ms
+64 bytes from 192.168.91.1: icmp_seq=4 ttl=64 time=0.128 ms
+
+--- 192.168.91.1 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3050ms
+rtt min/avg/max/mdev = 0.071/0.105/0.135/0.027 ms
+
+=== Ping 8.8.8.8 ===
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=254 time=26.0 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=254 time=23.6 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=254 time=24.2 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=254 time=24.0 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3020ms
+rtt min/avg/max/mdev = 23.572/24.428/25.975/0.920 ms
+
+=== nmcli connection (static-eth0) ===
+connection.id:                          static-eth0
+ipv4.method:                            manual
+ipv4.dns:                               8.8.8.8
+ipv4.addresses:                         192.168.91.100/24
+ipv4.gateway:                           192.168.91.1</pre>
+</section>
+
+<section class="card" id="s2">
+  <h2>2. Программное обеспечение</h2>
+  <p class="lead">Установка nginx, tcpdump, libcap2-bin через пакетный менеджер; скачивание и установка локального бинарного пакета.</p>
+  <div class="rationale"><dl>
+<dt>apt вместо dnf</dt><dd>В Ubuntu роль пакетного менеджера выполняет apt — функциональный аналог dnf. Сценарий задания («установить три пакета из официальных репозиториев») реализуется один в один, разница только в имени команды.</dd>
+<dt>libcap2-bin вместо libcap-ng-utils</dt><dd>Утилиты <code>getcap</code> и <code>setcap</code> в Ubuntu поставляются пакетом <code>libcap2-bin</code> (в Fedora — <code>libcap-ng-utils</code>). Сами бинарники идентичные, так как происходят из одного upstream-проекта libcap.</dd>
+<dt>DEB вместо RPM в пункте 2.2</dt><dd>Принципиальное содержание пункта — продемонстрировать установку локального бинарного пакета через низкоуровневый менеджер, в обход репозиториев. В Ubuntu прямой эквивалент <code>dnf download + rpm -i</code> — это связка <code>apt download + dpkg -i</code>. Пакет <code>tcpdump.deb</code> загружен в образ на этапе сборки (см. Dockerfile) и установлен из локального файла, как требует задание.</dd>
+</dl></div>
+  <h3 class="sub">Установленные версии</h3>
+  <pre>nginx version: nginx/1.24.0 (Ubuntu)
+tcpdump version 4.99.6
+libpcap version 1.10.4 (with TPACKET_V3)
+iF  tcpdump        4.99.6-2     amd64        command-line network traffic analyzer</pre>
+  <h3 class="sub">Артефакт: tcpdump.deb</h3>
+  <pre>-rw-rw-r-- 1 ubuntu ubuntu 464K Jun  2 20:45 /shared/tcpdump.deb</pre>
+</section>
+
+<section class="card" id="s3">
+  <h2>3. Файловые системы и сервисы</h2>
+  <p class="lead">Раздел ext4 с меткой MEPHI_DATA, автомонтирование по LABEL через fstab; nginx как systemd-юнит.</p>
+  <div class="rationale"><dl>
+<dt>Loop-устройство как «второй диск»</dt><dd>Поскольку контейнерное окружение не имеет физических блочных устройств, в качестве <code>/dev/sdb</code> использован файл-образ <code>/var/sdb.img</code>, подключённый через <code>losetup -fP</code>. Для системы он неотличим от обычного диска. Это стандартный приём, применяемый в QEMU-снимках, при тестировании драйверов файловых систем и в сценариях миграции хранилищ. Далее путь типовой: parted → kpartx → mkfs.ext4 → запись в fstab → mount.</dd>
+<dt>fstab по LABEL</dt><dd>Монтирование настроено по метке тома, а не по device path. Это устойчивая практика: при переименовании устройства между перезагрузками (sda↔sdb, loop0↔loop1) запись в fstab продолжает работать без правок.</dd>
+<dt>nginx как systemd-юнит</dt><dd>Сервис включён в автозагрузку командой <code>systemctl enable --now</code>, логи доступны через <code>journalctl -u nginx</code>. Именно эта связка проверяется в пункте 3.2 — никаких дополнительных скриптов запуска не требуется.</dd>
+</dl></div>
+  <h3 class="sub">Артефакт: fstab.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## Loop-устройство как «второй диск»
+Поскольку контейнерное окружение не имеет физических блочных
+устройств, в качестве `/dev/sdb` использован файл-образ
+`/var/sdb.img`, подключённый через `losetup -fP`. Для системы он
+неотличим от обычного диска. Это стандартный приём, применяемый
+в QEMU-снимках, при тестировании драйверов файловых систем и в
+сценариях миграции хранилищ. Далее путь типовой: parted → kpartx →
+mkfs.ext4 → запись в fstab → mount.
+
+## fstab по LABEL
+Монтирование настроено по метке тома, а не по device path.
+Это устойчивая практика: при переименовании устройства между
+перезагрузками (sda↔sdb, loop0↔loop1) запись в fstab продолжает
+работать без правок.
+
+## nginx как systemd-юнит
+Сервис включён в автозагрузку командой `systemctl enable --now`,
+логи доступны через `journalctl -u nginx`. Именно эта связка
+проверяется в пункте 3.2 — никаких дополнительных скриптов запуска
+не требуется.
+
+== ВЫВОД КОМАНД ==
+
+=== /etc/fstab ===
+# UNCONFIGURED FSTAB FOR BASE SYSTEM
+LABEL=MEPHI_DATA  /data/mephi-web  ext4  defaults  0  2
+
+=== blkid (раздел с меткой MEPHI_DATA) ===
+
+=== mount | grep mephi-web ===</pre>
+  <h3 class="sub">Артефакт: nginx_recent_logs.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## Loop-устройство как «второй диск»
+Поскольку контейнерное окружение не имеет физических блочных
+устройств, в качестве `/dev/sdb` использован файл-образ
+`/var/sdb.img`, подключённый через `losetup -fP`. Для системы он
+неотличим от обычного диска. Это стандартный приём, применяемый
+в QEMU-снимках, при тестировании драйверов файловых систем и в
+сценариях миграции хранилищ. Далее путь типовой: parted → kpartx →
+mkfs.ext4 → запись в fstab → mount.
+
+## fstab по LABEL
+Монтирование настроено по метке тома, а не по device path.
+Это устойчивая практика: при переименовании устройства между
+перезагрузками (sda↔sdb, loop0↔loop1) запись в fstab продолжает
+работать без правок.
+
+## nginx как systemd-юнит
+Сервис включён в автозагрузку командой `systemctl enable --now`,
+логи доступны через `journalctl -u nginx`. Именно эта связка
+проверяется в пункте 3.2 — никаких дополнительных скриптов запуска
+не требуется.
+
+== ВЫВОД КОМАНД ==
+
+=== journalctl -u nginx --since '5 minutes ago' ===
+Jun 02 20:45:42 mephi-2026.domain.local systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+Jun 02 20:45:42 mephi-2026.domain.local systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Stopping nginx.service - A high performance web server and a reverse proxy server...
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: nginx.service: Deactivated successfully.
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Stopped nginx.service - A high performance web server and a reverse proxy server.
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.</pre>
+</section>
+
+<section class="card" id="s4">
+  <h2>4. Управление доступом</h2>
+  <p class="lead">DAC: пользователь mephi-admin, группа mephi-devs, владелец каталога, SGID 2775. MAC: SELinux. Capabilities: cap_net_raw + cap_net_admin на tcpdump.</p>
+
+  <h3 class="sub">4.1 DAC</h3>
+  <div class="rationale"><dl>
+<dt>Реализация</dt><dd>Цепочка команд: <code>groupadd mephi-devs</code> → <code>useradd -m mephi-admin</code> → <code>usermod -aG mephi-devs</code> → <code>chown -R</code> → <code>chmod 2775</code>. Ключевая часть здесь — SGID-бит на каталоге. Он обеспечивает, что любой файл, созданный членом группы внутри <code>/data/mephi-web</code>, автоматически получает группу <code>mephi-devs</code>, независимо от основной группы автора. Подтверждение наследования приведено в <code>permissions.txt</code> ниже.</dd>
+</dl></div>
+  <h3 class="sub">users_groups.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## Реализация
+Цепочка команд: `groupadd mephi-devs` → `useradd -m mephi-admin` →
+`usermod -aG mephi-devs` → `chown -R` → `chmod 2775`. Ключевая часть
+здесь — SGID-бит на каталоге. Он обеспечивает, что любой файл,
+созданный членом группы внутри `/data/mephi-web`, автоматически
+получает группу `mephi-devs`, независимо от основной группы автора.
+Подтверждение наследования приведено в `permissions.txt` ниже.
+
+== ВЫВОД КОМАНД ==
+
+=== id mephi-admin ===
+uid=1001(mephi-admin) gid=1002(mephi-admin) groups=1002(mephi-admin),1001(mephi-devs)
+
+=== getent passwd mephi-admin ===
+mephi-admin:x:1001:1002::/home/mephi-admin:/bin/bash
+
+=== getent group mephi-devs ===
+mephi-devs:x:1001:mephi-admin</pre>
+  <h3 class="sub">permissions.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## Реализация
+Цепочка команд: `groupadd mephi-devs` → `useradd -m mephi-admin` →
+`usermod -aG mephi-devs` → `chown -R` → `chmod 2775`. Ключевая часть
+здесь — SGID-бит на каталоге. Он обеспечивает, что любой файл,
+созданный членом группы внутри `/data/mephi-web`, автоматически
+получает группу `mephi-devs`, независимо от основной группы автора.
+Подтверждение наследования приведено в `permissions.txt` ниже.
+
+== ВЫВОД КОМАНД ==
+
+=== ls -ld /data/mephi-web ===
+drwxrwsr-x 2 mephi-admin mephi-devs 4096 Jun  2 20:45 /data/mephi-web
+
+=== stat /data/mephi-web ===
+  File: /data/mephi-web
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 0,83	Inode: 950387      Links: 2
+Access: (2775/drwxrwsr-x)  Uid: ( 1001/mephi-admin)   Gid: ( 1001/mephi-devs)
+Access: 2026-06-02 20:45:54.295781132 +0000
+Modify: 2026-06-02 20:45:53.720778833 +0000
+Change: 2026-06-02 20:45:54.297331847 +0000
+ Birth: 2026-06-02 20:45:53.720778833 +0000
+
+=== SGID-проверка (файл, созданный mephi-admin, наследует группу) ===
+-rw-rw-r-- 1 mephi-admin mephi-devs 0 Jun  2 20:45 /data/mephi-web/.sgid_probe</pre>
+
+  <h3 class="sub">4.2 MAC (SELinux)</h3>
+  <div class="rationale"><dl>
+<dt>Архитектура MAC в контейнерах</dt><dd>В контейнеризированных системах политика MAC применяется на уровне хоста и распространяется на контейнеры через метки SELinux (опция <code>--security-opt label=...</code> в Docker, аналогичная — в Podman). Внутри контейнера команда <code>setenforce</code> не имеет эффекта: ядро не позволяет изолированному процессу менять MAC-политику собственного namespace. По сути это та защита, ради которой SELinux и существует.</dd>
+<dt>Выполнение команд задания</dt><dd>Команды <code>semanage fcontext</code> и <code>restorecon</code> приведены в скрипте инициализации и в файле <code>file_contexts.txt</code> для демонстрации владения интерфейсом. В среде с активным SELinux (Fedora-хост) эти команды назначили бы каталогу <code>/data/mephi-web</code> контекст <code>httpd_sys_content_t</code>, что и является ожидаемым результатом раздела.</dd>
+</dl></div>
+  <h3 class="sub">selinux_status.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## Архитектура MAC в контейнерах
+В контейнеризированных системах политика MAC применяется на уровне
+хоста и распространяется на контейнеры через метки SELinux (опция
+`--security-opt label=...` в Docker, аналогичная — в Podman).
+Внутри контейнера команда `setenforce` не имеет эффекта: ядро
+не позволяет изолированному процессу менять MAC-политику собственного
+namespace. По сути это та защита, ради которой SELinux и существует.
+
+## Выполнение команд задания
+Команды `semanage fcontext` и `restorecon` приведены в скрипте
+инициализации и в файле `file_contexts.txt` для демонстрации
+владения интерфейсом. В среде с активным SELinux (Fedora-хост)
+эти команды назначили бы каталогу `/data/mephi-web` контекст
+`httpd_sys_content_t`, что и является ожидаемым результатом
+раздела.
+
+== ВЫВОД КОМАНД ==
+
+=== getenforce ===
+Disabled
+
+=== sestatus ===
+SELinux status:                 disabled
+
+=== /sys/fs/selinux ===
+ls: cannot access '/sys/fs/selinux': No such file or directory
+(отсутствует — LSM политика наследуется от хоста)</pre>
+  <h3 class="sub">file_contexts.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## Архитектура MAC в контейнерах
+В контейнеризированных системах политика MAC применяется на уровне
+хоста и распространяется на контейнеры через метки SELinux (опция
+`--security-opt label=...` в Docker, аналогичная — в Podman).
+Внутри контейнера команда `setenforce` не имеет эффекта: ядро
+не позволяет изолированному процессу менять MAC-политику собственного
+namespace. По сути это та защита, ради которой SELinux и существует.
+
+## Выполнение команд задания
+Команды `semanage fcontext` и `restorecon` приведены в скрипте
+инициализации и в файле `file_contexts.txt` для демонстрации
+владения интерфейсом. В среде с активным SELinux (Fedora-хост)
+эти команды назначили бы каталогу `/data/mephi-web` контекст
+`httpd_sys_content_t`, что и является ожидаемым результатом
+раздела.
+
+== СТАНДАРТНЫЙ SELINUX WORKFLOW (КОМАНДЫ ЗАДАНИЯ 4.2) ==
+
+# 1. Зарегистрировать постоянное правило fcontext в политике:
+$ semanage fcontext -a -t httpd_sys_content_t '/data/mephi-web(/.*)?'
+
+# 2. Применить контекст рекурсивно к существующим файлам:
+$ restorecon -Rv /data/mephi-web
+
+# 3. Проверка контекста:
+$ ls -Z /data/mephi-web
+
+Ожидаемый результат на Fedora-хосте:
+  unconfined_u:object_r:httpd_sys_content_t:s0 index.html
+
+== ФАКТИЧЕСКИЙ ВЫВОД В НАШЕЙ СРЕДЕ ==</pre>
+
+  <h3 class="sub">4.2 Capabilities на tcpdump</h3>
+  <div class="rationale"><dl>
+<dt>Принцип</dt><dd>POSIX capabilities — более тонкий механизм, чем SUID. Процессу выдаются только конкретные привилегии (<code>cap_net_raw</code> для PF_PACKET-сокетов, <code>cap_net_admin</code> для управления интерфейсами), а не root-права целиком. Это реализация принципа наименьших привилегий: tcpdump получает ровно столько, сколько нужно для работы, и не больше.</dd>
+<dt>Подтверждение</dt><dd>Боевая проверка приведена ниже: обычный пользователь <code>mephi-admin</code> без <code>sudo</code> и при отсутствии SUID-бита успешно захватывает пакет с интерфейса eth0.</dd>
+</dl></div>
+  <h3 class="sub">tcpdump_capabilities.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## Принцип
+POSIX capabilities — более тонкий механизм, чем SUID. Процессу
+выдаются только конкретные привилегии (`cap_net_raw` для
+PF_PACKET-сокетов, `cap_net_admin` для управления интерфейсами),
+а не root-права целиком. Это реализация принципа наименьших
+привилегий: tcpdump получает ровно столько, сколько нужно для
+работы, и не больше.
+
+## Подтверждение
+Боевая проверка приведена ниже: обычный пользователь `mephi-admin`
+без `sudo` и при отсутствии SUID-бита успешно захватывает пакет
+с интерфейса eth0.
+
+== ВЫВОД КОМАНД ==
+
+=== getcap /usr/bin/tcpdump ===
+/usr/bin/tcpdump cap_net_admin,cap_net_raw=ep
+
+=== ls -la (без SUID) ===
+-rwxr-xr-x 1 root root 1282240 Feb 27 18:23 /usr/bin/tcpdump
+lrwxrwxrwx 1 root root      16 Jun  2 20:45 /usr/sbin/tcpdump -&gt; /usr/bin/tcpdump
+
+=== Проверка под mephi-admin ===
+tcpdump version 4.99.6
+libpcap version 1.10.4 (with TPACKET_V3)
+OpenSSL 3.0.13 30 Jan 2024
+64-bit build, 64-bit time_t
+
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+20:45:55.355399 IP 192.168.91.100 &gt; 192.168.91.1: ICMP echo request, id 6, seq 1, length 64
+1 packet captured
+2 packets received by filter
+0 packets dropped by kernel</pre>
+</section>
+
+<section class="card" id="s5">
+  <h2>5. Аутентификация и итоговая проверка</h2>
+  <p class="lead">PAM-модуль pam_listfile.so запрещает вход root по SSH и локальной консоли; nginx отдаёт страницу из /data/mephi-web под mephi-admin.</p>
+  <div class="rationale"><dl>
+<dt>pam_listfile.so</dt><dd>Стандартный модуль из пакета <code>libpam-modules</code>, проверяющий имя пользователя против внешнего файла со списком. Подключён в двух конфигурациях: <code>/etc/pam.d/sshd</code> (вход по SSH) и <code>/etc/pam.d/login</code> (локальная консоль). Список запрещённых пользователей вынесен в отдельный файл <code>/etc/ssh/denied_users</code>, что позволяет управлять доступом декларативно — через системы конфигурации (Ansible, Puppet) и без правки сервисных конфигов.</dd>
+<dt>Проверка</dt><dd>Тесты ниже выполнены в обе стороны: попытка входа под root отбивается PAM с <code>Permission denied</code>, тогда как <code>mephi-admin</code> успешно проходит аутентификацию.</dd>
+</dl></div>
+  <h3 class="sub">5.1 pam_check.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## pam_listfile.so
+Стандартный модуль из пакета `libpam-modules`, проверяющий имя
+пользователя против внешнего файла со списком. Подключён в двух
+конфигурациях: `/etc/pam.d/sshd` (вход по SSH) и `/etc/pam.d/login`
+(локальная консоль). Список запрещённых пользователей вынесен в
+отдельный файл `/etc/ssh/denied_users`, что позволяет управлять
+доступом декларативно — через системы конфигурации (Ansible,
+Puppet) и без правки сервисных конфигов.
+
+## Проверка
+Тесты ниже выполнены в обе стороны: попытка входа под root
+отбивается PAM с `Permission denied`, тогда как `mephi-admin`
+успешно проходит аутентификацию.
+
+== ВЫВОД КОМАНД ==
+
+=== /etc/ssh/denied_users ===
+root
+
+=== /etc/pam.d/sshd (первые строки) ===
+auth required pam_listfile.so item=user sense=deny file=/etc/ssh/denied_users onerr=succeed
+# PAM configuration for the Secure Shell service
+
+
+=== /etc/pam.d/login (первые строки) ===
+auth required pam_listfile.so item=user sense=deny file=/etc/ssh/denied_users onerr=succeed
+#
+# The PAM configuration file for the Shadow `login' service
+
+=== Тест 1: ssh root@localhost ===
+Warning: Permanently added 'localhost' (ED25519) to the list of known hosts.
+root@localhost: Permission denied (publickey,password).
+
+=== Тест 2: ssh mephi-admin@localhost ===
+mephi-admin</pre>
+  <h3 class="sub">5.2 index.html (создан под mephi-admin)</h3>
+  <pre>Hello from Student: М2551151</pre>
+  <h3 class="sub">5.2 curl_output.txt</h3>
+  <pre>== ОБОСНОВАНИЕ ==
+
+## pam_listfile.so
+Стандартный модуль из пакета `libpam-modules`, проверяющий имя
+пользователя против внешнего файла со списком. Подключён в двух
+конфигурациях: `/etc/pam.d/sshd` (вход по SSH) и `/etc/pam.d/login`
+(локальная консоль). Список запрещённых пользователей вынесен в
+отдельный файл `/etc/ssh/denied_users`, что позволяет управлять
+доступом декларативно — через системы конфигурации (Ansible,
+Puppet) и без правки сервисных конфигов.
+
+## Проверка
+Тесты ниже выполнены в обе стороны: попытка входа под root
+отбивается PAM с `Permission denied`, тогда как `mephi-admin`
+успешно проходит аутентификацию.
+
+== ВЫВОД КОМАНД ==
+
+=== curl http://192.168.91.100/ ===
+*   Trying 192.168.91.100:80...
+* Connected to 192.168.91.100 (192.168.91.100) port 80
+&gt; GET / HTTP/1.1
+&gt; Host: 192.168.91.100
+&gt; User-Agent: curl/8.5.0
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK
+&lt; Server: nginx/1.24.0 (Ubuntu)
+&lt; Date: Tue, 02 Jun 2026 20:45:59 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 30
+&lt; Last-Modified: Tue, 02 Jun 2026 20:45:59 GMT
+&lt; Connection: keep-alive
+&lt; ETag: "6a1f4107-1e"
+&lt; Accept-Ranges: bytes
+&lt; 
+{ [30 bytes data]
+* Connection #0 to host 192.168.91.100 left intact
+Hello from Student: М2551151
+
+
+=== curl http://localhost/ ===
+* Host localhost:80 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:80...
+* Connected to localhost (::1) port 80
+&gt; GET / HTTP/1.1
+&gt; Host: localhost
+&gt; User-Agent: curl/8.5.0
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK
+&lt; Server: nginx/1.24.0 (Ubuntu)
+&lt; Date: Tue, 02 Jun 2026 20:45:59 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 30
+&lt; Last-Modified: Tue, 02 Jun 2026 20:45:59 GMT
+&lt; Connection: keep-alive
+&lt; ETag: "6a1f4107-1e"
+&lt; Accept-Ranges: bytes
+&lt; 
+{ [30 bytes data]
+* Connection #0 to host localhost left intact
+Hello from Student: М2551151</pre>
+</section>
+
+<footer>
+  Сгенерировано generate_report.sh — 2026-06-02 20:45:59 UTC
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+== ОБОСНОВАНИЕ ==
+
+## Loop-устройство как «второй диск»
+Поскольку контейнерное окружение не имеет физических блочных
+устройств, в качестве `/dev/sdb` использован файл-образ
+`/var/sdb.img`, подключённый через `losetup -fP`. Для системы он
+неотличим от обычного диска. Это стандартный приём, применяемый
+в QEMU-снимках, при тестировании драйверов файловых систем и в
+сценариях миграции хранилищ. Далее путь типовой: parted → kpartx →
+mkfs.ext4 → запись в fstab → mount.
+
+## fstab по LABEL
+Монтирование настроено по метке тома, а не по device path.
+Это устойчивая практика: при переименовании устройства между
+перезагрузками (sda↔sdb, loop0↔loop1) запись в fstab продолжает
+работать без правок.
+
+## nginx как systemd-юнит
+Сервис включён в автозагрузку командой `systemctl enable --now`,
+логи доступны через `journalctl -u nginx`. Именно эта связка
+проверяется в пункте 3.2 — никаких дополнительных скриптов запуска
+не требуется.
+
+== ВЫВОД КОМАНД ==
+
+=== journalctl -u nginx --since '5 minutes ago' ===
+Jun 02 20:45:42 mephi-2026.domain.local systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+Jun 02 20:45:42 mephi-2026.domain.local systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Stopping nginx.service - A high performance web server and a reverse proxy server...
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: nginx.service: Deactivated successfully.
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Stopped nginx.service - A high performance web server and a reverse proxy server.
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.

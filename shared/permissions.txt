@@ -1,0 +1,27 @@
+== ОБОСНОВАНИЕ ==
+
+## Реализация
+Цепочка команд: `groupadd mephi-devs` → `useradd -m mephi-admin` →
+`usermod -aG mephi-devs` → `chown -R` → `chmod 2775`. Ключевая часть
+здесь — SGID-бит на каталоге. Он обеспечивает, что любой файл,
+созданный членом группы внутри `/data/mephi-web`, автоматически
+получает группу `mephi-devs`, независимо от основной группы автора.
+Подтверждение наследования приведено в `permissions.txt` ниже.
+
+== ВЫВОД КОМАНД ==
+
+=== ls -ld /data/mephi-web ===
+drwxrwsr-x 2 mephi-admin mephi-devs 4096 Jun  2 20:45 /data/mephi-web
+
+=== stat /data/mephi-web ===
+  File: /data/mephi-web
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 0,83	Inode: 950387      Links: 2
+Access: (2775/drwxrwsr-x)  Uid: ( 1001/mephi-admin)   Gid: ( 1001/mephi-devs)
+Access: 2026-06-02 20:45:54.295781132 +0000
+Modify: 2026-06-02 20:45:53.720778833 +0000
+Change: 2026-06-02 20:45:54.297331847 +0000
+ Birth: 2026-06-02 20:45:53.720778833 +0000
+
+=== SGID-проверка (файл, созданный mephi-admin, наследует группу) ===
+-rw-rw-r-- 1 mephi-admin mephi-devs 0 Jun  2 20:45 /data/mephi-web/.sgid_probe

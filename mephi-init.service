@@ -1,0 +1,18 @@
+[Unit]
+Description=MEPHI Project Init (sections 1-5)
+After=network-online.target NetworkManager.service
+Wants=network-online.target
+ConditionPathExists=/usr/local/bin/mephi-init.sh
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment=STUDENT_ID=<ВАШ_НОМЕР>
+EnvironmentFile=-/shared/student.env
+ExecStart=/usr/local/bin/mephi-init.sh
+StandardOutput=journal
+StandardError=journal
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target

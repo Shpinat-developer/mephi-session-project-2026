@@ -1,0 +1,20 @@
+== ОБОСНОВАНИЕ ==
+
+## Реализация
+Цепочка команд: `groupadd mephi-devs` → `useradd -m mephi-admin` →
+`usermod -aG mephi-devs` → `chown -R` → `chmod 2775`. Ключевая часть
+здесь — SGID-бит на каталоге. Он обеспечивает, что любой файл,
+созданный членом группы внутри `/data/mephi-web`, автоматически
+получает группу `mephi-devs`, независимо от основной группы автора.
+Подтверждение наследования приведено в `permissions.txt` ниже.
+
+== ВЫВОД КОМАНД ==
+
+=== id mephi-admin ===
+uid=1001(mephi-admin) gid=1002(mephi-admin) groups=1002(mephi-admin),1001(mephi-devs)
+
+=== getent passwd mephi-admin ===
+mephi-admin:x:1001:1002::/home/mephi-admin:/bin/bash
+
+=== getent group mephi-devs ===
+mephi-devs:x:1001:mephi-admin

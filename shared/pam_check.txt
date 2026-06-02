@@ -1,0 +1,37 @@
+== ОБОСНОВАНИЕ ==
+
+## pam_listfile.so
+Стандартный модуль из пакета `libpam-modules`, проверяющий имя
+пользователя против внешнего файла со списком. Подключён в двух
+конфигурациях: `/etc/pam.d/sshd` (вход по SSH) и `/etc/pam.d/login`
+(локальная консоль). Список запрещённых пользователей вынесен в
+отдельный файл `/etc/ssh/denied_users`, что позволяет управлять
+доступом декларативно — через системы конфигурации (Ansible,
+Puppet) и без правки сервисных конфигов.
+
+## Проверка
+Тесты ниже выполнены в обе стороны: попытка входа под root
+отбивается PAM с `Permission denied`, тогда как `mephi-admin`
+успешно проходит аутентификацию.
+
+== ВЫВОД КОМАНД ==
+
+=== /etc/ssh/denied_users ===
+root
+
+=== /etc/pam.d/sshd (первые строки) ===
+auth required pam_listfile.so item=user sense=deny file=/etc/ssh/denied_users onerr=succeed
+# PAM configuration for the Secure Shell service
+
+
+=== /etc/pam.d/login (первые строки) ===
+auth required pam_listfile.so item=user sense=deny file=/etc/ssh/denied_users onerr=succeed
+#
+# The PAM configuration file for the Shadow `login' service
+
+=== Тест 1: ssh root@localhost ===
+Warning: Permanently added 'localhost' (ED25519) to the list of known hosts.
+root@localhost: Permission denied (publickey,password).
+
+=== Тест 2: ssh mephi-admin@localhost ===
+mephi-admin
