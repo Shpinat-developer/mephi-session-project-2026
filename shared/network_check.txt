@@ -27,25 +27,25 @@ default via 192.168.91.1 dev eth0
 
 === Ping шлюза ===
 PING 192.168.91.1 (192.168.91.1) 56(84) bytes of data.
-64 bytes from 192.168.91.1: icmp_seq=1 ttl=64 time=0.071 ms
-64 bytes from 192.168.91.1: icmp_seq=2 ttl=64 time=0.086 ms
-64 bytes from 192.168.91.1: icmp_seq=3 ttl=64 time=0.135 ms
-64 bytes from 192.168.91.1: icmp_seq=4 ttl=64 time=0.128 ms
+64 bytes from 192.168.91.1: icmp_seq=1 ttl=64 time=0.085 ms
+64 bytes from 192.168.91.1: icmp_seq=2 ttl=64 time=0.221 ms
+64 bytes from 192.168.91.1: icmp_seq=3 ttl=64 time=0.272 ms
+64 bytes from 192.168.91.1: icmp_seq=4 ttl=64 time=0.237 ms
 
 --- 192.168.91.1 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3050ms
-rtt min/avg/max/mdev = 0.071/0.105/0.135/0.027 ms
+4 packets transmitted, 4 received, 0% packet loss, time 3105ms
+rtt min/avg/max/mdev = 0.085/0.203/0.272/0.071 ms
 
 === Ping 8.8.8.8 ===
 PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
-64 bytes from 8.8.8.8: icmp_seq=1 ttl=254 time=26.0 ms
-64 bytes from 8.8.8.8: icmp_seq=2 ttl=254 time=23.6 ms
-64 bytes from 8.8.8.8: icmp_seq=3 ttl=254 time=24.2 ms
-64 bytes from 8.8.8.8: icmp_seq=4 ttl=254 time=24.0 ms
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=254 time=55.5 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=254 time=47.3 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=254 time=63.6 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=254 time=66.4 ms
 
 --- 8.8.8.8 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3020ms
-rtt min/avg/max/mdev = 23.572/24.428/25.975/0.920 ms
+4 packets transmitted, 4 received, 0% packet loss, time 3027ms
+rtt min/avg/max/mdev = 47.312/58.194/66.361/7.442 ms
 
 === nmcli connection (static-eth0) ===
 connection.id:                          static-eth0

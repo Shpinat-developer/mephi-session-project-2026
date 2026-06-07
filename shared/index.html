@@ -66,12 +66,12 @@
 
 <header class="hero">
   <h1>МИФИ — итоговый проект 2026</h1>
-  <div class="student">Hello from Student: М2551151</div>
+  <div class="student">Hello from Student: M2551151</div>
   <div class="meta">
     <span><b>Hostname:</b> mephi-2026.domain.local</span>
     <span><b>OS:</b> Ubuntu 24.04.4 LTS</span>
     <span><b>Kernel:</b> 6.17.0-20-generic</span>
-    <span><b>Сгенерировано:</b> 2026-06-02 20:45:59 UTC</span>
+    <span><b>Сгенерировано:</b> 2026-06-07 19:34:16 UTC</span>
   </div>
 </header>
 
@@ -138,25 +138,25 @@ default via 192.168.91.1 dev eth0
 
 === Ping шлюза ===
 PING 192.168.91.1 (192.168.91.1) 56(84) bytes of data.
-64 bytes from 192.168.91.1: icmp_seq=1 ttl=64 time=0.071 ms
-64 bytes from 192.168.91.1: icmp_seq=2 ttl=64 time=0.086 ms
-64 bytes from 192.168.91.1: icmp_seq=3 ttl=64 time=0.135 ms
-64 bytes from 192.168.91.1: icmp_seq=4 ttl=64 time=0.128 ms
+64 bytes from 192.168.91.1: icmp_seq=1 ttl=64 time=0.085 ms
+64 bytes from 192.168.91.1: icmp_seq=2 ttl=64 time=0.221 ms
+64 bytes from 192.168.91.1: icmp_seq=3 ttl=64 time=0.272 ms
+64 bytes from 192.168.91.1: icmp_seq=4 ttl=64 time=0.237 ms
 
 --- 192.168.91.1 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3050ms
-rtt min/avg/max/mdev = 0.071/0.105/0.135/0.027 ms
+4 packets transmitted, 4 received, 0% packet loss, time 3105ms
+rtt min/avg/max/mdev = 0.085/0.203/0.272/0.071 ms
 
 === Ping 8.8.8.8 ===
 PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
-64 bytes from 8.8.8.8: icmp_seq=1 ttl=254 time=26.0 ms
-64 bytes from 8.8.8.8: icmp_seq=2 ttl=254 time=23.6 ms
-64 bytes from 8.8.8.8: icmp_seq=3 ttl=254 time=24.2 ms
-64 bytes from 8.8.8.8: icmp_seq=4 ttl=254 time=24.0 ms
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=254 time=55.5 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=254 time=47.3 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=254 time=63.6 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=254 time=66.4 ms
 
 --- 8.8.8.8 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3020ms
-rtt min/avg/max/mdev = 23.572/24.428/25.975/0.920 ms
+4 packets transmitted, 4 received, 0% packet loss, time 3027ms
+rtt min/avg/max/mdev = 47.312/58.194/66.361/7.442 ms
 
 === nmcli connection (static-eth0) ===
 connection.id:                          static-eth0
@@ -180,7 +180,7 @@ tcpdump version 4.99.6
 libpcap version 1.10.4 (with TPACKET_V3)
 iF  tcpdump        4.99.6-2     amd64        command-line network traffic analyzer</pre>
   <h3 class="sub">Артефакт: tcpdump.deb</h3>
-  <pre>-rw-rw-r-- 1 ubuntu ubuntu 464K Jun  2 20:45 /shared/tcpdump.deb</pre>
+  <pre>-rw-r--r-- 1 root root 464K Jun  7 19:34 /shared/tcpdump.deb</pre>
 </section>
 
 <section class="card" id="s3">
@@ -251,13 +251,13 @@ mkfs.ext4 → запись в fstab → mount.
 == ВЫВОД КОМАНД ==
 
 === journalctl -u nginx --since '5 minutes ago' ===
-Jun 02 20:45:42 mephi-2026.domain.local systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
-Jun 02 20:45:42 mephi-2026.domain.local systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.
-Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Stopping nginx.service - A high performance web server and a reverse proxy server...
-Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: nginx.service: Deactivated successfully.
-Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Stopped nginx.service - A high performance web server and a reverse proxy server.
-Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
-Jun 02 20:45:54 mephi-2026.domain.local systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.</pre>
+Jun 07 19:33:56 mephi-2026.domain.local systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+Jun 07 19:33:56 mephi-2026.domain.local systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.
+Jun 07 19:34:08 mephi-2026.domain.local systemd[1]: Stopping nginx.service - A high performance web server and a reverse proxy server...
+Jun 07 19:34:08 mephi-2026.domain.local systemd[1]: nginx.service: Deactivated successfully.
+Jun 07 19:34:08 mephi-2026.domain.local systemd[1]: Stopped nginx.service - A high performance web server and a reverse proxy server.
+Jun 07 19:34:08 mephi-2026.domain.local systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+Jun 07 19:34:08 mephi-2026.domain.local systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.</pre>
 </section>
 
 <section class="card" id="s4">
@@ -303,20 +303,20 @@ mephi-devs:x:1001:mephi-admin</pre>
 == ВЫВОД КОМАНД ==
 
 === ls -ld /data/mephi-web ===
-drwxrwsr-x 2 mephi-admin mephi-devs 4096 Jun  2 20:45 /data/mephi-web
+drwxrwsr-x 2 mephi-admin mephi-devs 4096 Jun  7 19:34 /data/mephi-web
 
 === stat /data/mephi-web ===
   File: /data/mephi-web
   Size: 4096      	Blocks: 8          IO Block: 4096   directory
-Device: 0,83	Inode: 950387      Links: 2
+Device: 0,121	Inode: 951243      Links: 2
 Access: (2775/drwxrwsr-x)  Uid: ( 1001/mephi-admin)   Gid: ( 1001/mephi-devs)
-Access: 2026-06-02 20:45:54.295781132 +0000
-Modify: 2026-06-02 20:45:53.720778833 +0000
-Change: 2026-06-02 20:45:54.297331847 +0000
- Birth: 2026-06-02 20:45:53.720778833 +0000
+Access: 2026-06-07 19:34:08.307962602 +0000
+Modify: 2026-06-07 19:34:07.177970727 +0000
+Change: 2026-06-07 19:34:08.309516148 +0000
+ Birth: 2026-06-07 19:34:07.177970727 +0000
 
 === SGID-проверка (файл, созданный mephi-admin, наследует группу) ===
--rw-rw-r-- 1 mephi-admin mephi-devs 0 Jun  2 20:45 /data/mephi-web/.sgid_probe</pre>
+-rw-rw-r-- 1 mephi-admin mephi-devs 0 Jun  7 19:34 /data/mephi-web/.sgid_probe</pre>
 
   <h3 class="sub">4.2 MAC (SELinux)</h3>
   <div class="rationale"><dl>
@@ -416,7 +416,7 @@ PF_PACKET-сокетов, `cap_net_admin` для управления интер
 
 === ls -la (без SUID) ===
 -rwxr-xr-x 1 root root 1282240 Feb 27 18:23 /usr/bin/tcpdump
-lrwxrwxrwx 1 root root      16 Jun  2 20:45 /usr/sbin/tcpdump -&gt; /usr/bin/tcpdump
+lrwxrwxrwx 1 root root      16 Jun  7 19:34 /usr/sbin/tcpdump -&gt; /usr/bin/tcpdump
 
 === Проверка под mephi-admin ===
 tcpdump version 4.99.6
@@ -426,7 +426,7 @@ OpenSSL 3.0.13 30 Jan 2024
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
-20:45:55.355399 IP 192.168.91.100 &gt; 192.168.91.1: ICMP echo request, id 6, seq 1, length 64
+19:34:09.371142 IP 192.168.91.100 &gt; 192.168.91.1: ICMP echo request, id 24, seq 1, length 64
 1 packet captured
 2 packets received by filter
 0 packets dropped by kernel</pre>
@@ -478,7 +478,7 @@ root@localhost: Permission denied (publickey,password).
 === Тест 2: ssh mephi-admin@localhost ===
 mephi-admin</pre>
   <h3 class="sub">5.2 index.html (создан под mephi-admin)</h3>
-  <pre>Hello from Student: М2551151</pre>
+  <pre>Hello from Student: M2551151</pre>
   <h3 class="sub">5.2 curl_output.txt</h3>
   <pre>== ОБОСНОВАНИЕ ==
 
@@ -508,17 +508,17 @@ Puppet) и без правки сервисных конфигов.
 &gt; 
 &lt; HTTP/1.1 200 OK
 &lt; Server: nginx/1.24.0 (Ubuntu)
-&lt; Date: Tue, 02 Jun 2026 20:45:59 GMT
+&lt; Date: Sun, 07 Jun 2026 19:34:16 GMT
 &lt; Content-Type: text/html
-&lt; Content-Length: 30
-&lt; Last-Modified: Tue, 02 Jun 2026 20:45:59 GMT
+&lt; Content-Length: 29
+&lt; Last-Modified: Sun, 07 Jun 2026 19:34:15 GMT
 &lt; Connection: keep-alive
-&lt; ETag: "6a1f4107-1e"
+&lt; ETag: "6a25c7b7-1d"
 &lt; Accept-Ranges: bytes
 &lt; 
-{ [30 bytes data]
+{ [29 bytes data]
 * Connection #0 to host 192.168.91.100 left intact
-Hello from Student: М2551151
+Hello from Student: M2551151
 
 
 === curl http://localhost/ ===
@@ -534,21 +534,21 @@ Hello from Student: М2551151
 &gt; 
 &lt; HTTP/1.1 200 OK
 &lt; Server: nginx/1.24.0 (Ubuntu)
-&lt; Date: Tue, 02 Jun 2026 20:45:59 GMT
+&lt; Date: Sun, 07 Jun 2026 19:34:16 GMT
 &lt; Content-Type: text/html
-&lt; Content-Length: 30
-&lt; Last-Modified: Tue, 02 Jun 2026 20:45:59 GMT
+&lt; Content-Length: 29
+&lt; Last-Modified: Sun, 07 Jun 2026 19:34:15 GMT
 &lt; Connection: keep-alive
-&lt; ETag: "6a1f4107-1e"
+&lt; ETag: "6a25c7b7-1d"
 &lt; Accept-Ranges: bytes
 &lt; 
-{ [30 bytes data]
+{ [29 bytes data]
 * Connection #0 to host localhost left intact
-Hello from Student: М2551151</pre>
+Hello from Student: M2551151</pre>
 </section>
 
 <footer>
-  Сгенерировано generate_report.sh — 2026-06-02 20:45:59 UTC
+  Сгенерировано generate_report.sh — 2026-06-07 19:34:16 UTC
 </footer>
 
 </div>

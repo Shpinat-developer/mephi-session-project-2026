@@ -7,7 +7,7 @@ ConditionPathExists=/usr/local/bin/mephi-init.sh
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-Environment=STUDENT_ID=<ВАШ_НОМЕР>
+Environment=STUDENT_ID=M2551151
 EnvironmentFile=-/shared/student.env
 ExecStart=/usr/local/bin/mephi-init.sh
 StandardOutput=journal

@@ -26,17 +26,17 @@ Puppet) и без правки сервисных конфигов.
 > 
 < HTTP/1.1 200 OK
 < Server: nginx/1.24.0 (Ubuntu)
-< Date: Tue, 02 Jun 2026 20:45:59 GMT
+< Date: Sun, 07 Jun 2026 19:34:16 GMT
 < Content-Type: text/html
-< Content-Length: 30
-< Last-Modified: Tue, 02 Jun 2026 20:45:59 GMT
+< Content-Length: 29
+< Last-Modified: Sun, 07 Jun 2026 19:34:15 GMT
 < Connection: keep-alive
-< ETag: "6a1f4107-1e"
+< ETag: "6a25c7b7-1d"
 < Accept-Ranges: bytes
 < 
-{ [30 bytes data]
+{ [29 bytes data]
 * Connection #0 to host 192.168.91.100 left intact
-Hello from Student: М2551151
+Hello from Student: M2551151
 
 
 === curl http://localhost/ ===
@@ -52,14 +52,14 @@ Hello from Student: М2551151
 > 
 < HTTP/1.1 200 OK
 < Server: nginx/1.24.0 (Ubuntu)
-< Date: Tue, 02 Jun 2026 20:45:59 GMT
+< Date: Sun, 07 Jun 2026 19:34:16 GMT
 < Content-Type: text/html
-< Content-Length: 30
-< Last-Modified: Tue, 02 Jun 2026 20:45:59 GMT
+< Content-Length: 29
+< Last-Modified: Sun, 07 Jun 2026 19:34:15 GMT
 < Connection: keep-alive
-< ETag: "6a1f4107-1e"
+< ETag: "6a25c7b7-1d"
 < Accept-Ranges: bytes
 < 
-{ [30 bytes data]
+{ [29 bytes data]
 * Connection #0 to host localhost left intact
-Hello from Student: М2551151
+Hello from Student: M2551151

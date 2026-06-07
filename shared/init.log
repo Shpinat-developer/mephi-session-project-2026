@@ -1,342 +1,9 @@
 ================================================================
-mephi-init started at Sun May 24 14:25:24 UTC 2026
+mephi-init started at Sun Jun  7 19:28:16 UTC 2026
 ================================================================
 
 ### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (b5463810-21f3-41a3-a890-26174a6cc6b7) successfully added.
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
-================================================================
-mephi-init started at Sun May 24 14:33:47 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (1518936f-bffe-44ca-b412-b0983a5eb139) successfully added.
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
-kpartx is already the newest version (0.9.4-5ubuntu8.1).
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-
-### [2.2] RPM tcpdump
-================================================================
-mephi-init started at Sun May 24 14:36:31 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (3b283573-7a62-42bf-a36e-9f4aeba5c826) successfully added.
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
-kpartx is already the newest version (0.9.4-5ubuntu8.1).
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-
-### [2.2] RPM tcpdump
-================================================================
-mephi-init started at Sun May 24 14:36:44 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (fda7957e-4bca-484e-9ddf-efac1294a8f4) successfully added.
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
-kpartx is already the newest version (0.9.4-5ubuntu8.1).
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-
-### [2.2] DEB tcpdump (Ubuntu-эквивалент 'dnf download + rpm -i')
-E: Can't find a source to download version '4.99.4-3ubuntu4.24.04.1' of 'tcpdump:arm64'
-(не удалось скачать tcpdump.deb — пакет уже установлен в образе)
-
-### [3.1] Loop-диск + ext4 MEPHI_DATA + fstab
-mke2fs 1.47.0 (5-Feb-2023)
-Discarding device blocks:      0/261888             done                            
-Creating filesystem with 261888 4k blocks and 65536 inodes
-Filesystem UUID: 19d062d3-f087-47f8-a58f-713ac943f70e
-Superblock backups stored on blocks: 
-	32768, 98304, 163840, 229376
-
-Allocating group tables: 0/8   done                            
-Writing inode tables: 0/8   done                            
-Creating journal (4096 blocks): done
-Writing superblocks and filesystem accounting information: 0/8   done
-
-
-### [3.2] nginx + journalctl
-
-### [4.1] DAC
-
-### [4.2] SELinux (ограничение Docker) + capabilities
-
-### [5.1] PAM deny root
-
-### [5.2] index.html (под mephi-admin) + curl
-
-### Генерация HTML-отчёта
-Готово: /data/mephi-web/index.html
--rw-rw-r-- 1 mephi-admin mephi-devs 14897 May 24 14:37 /data/mephi-web/index.html
-
-================================================================
-mephi-init finished at Sun May 24 14:37:01 UTC 2026
-================================================================
-================================================================
-mephi-init started at Sun May 24 14:39:55 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (61dcb428-3088-4d06-bbf5-eef5b57c3a72) successfully added.
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
-kpartx is already the newest version (0.9.4-5ubuntu8.1).
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-
-### [2.2] DEB tcpdump (Ubuntu-эквивалент 'dnf download + rpm -i')
-================================================================
-mephi-init started at Sun May 24 14:44:15 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (04be5fad-5040-4b6c-a8eb-6a48d057c8d4) successfully added.
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
-kpartx is already the newest version (0.9.4-5ubuntu8.1).
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-
-### [2.2] DEB tcpdump (Ubuntu-эквивалент 'dnf download + rpm -i')
-================================================================
-mephi-init started at Sun May 24 14:47:39 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (969a197b-bed9-4c31-a172-ae08ff14d378) successfully added.
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
-kpartx is already the newest version (0.9.4-5ubuntu8.1).
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-
-### [2.2] DEB tcpdump (Ubuntu-эквивалент 'dnf download + rpm -i')
-Из кеша: /tmp/tcpdump_4.99.6-1_arm64.deb
-Processing triggers for man-db (2.12.0-4build2) ...
-Errors were encountered while processing:
- tcpdump
-
-### [3.1] Loop-диск + ext4 MEPHI_DATA + fstab
-mke2fs 1.47.0 (5-Feb-2023)
-Discarding device blocks:      0/261888             done                            
-Creating filesystem with 261888 4k blocks and 65536 inodes
-Filesystem UUID: 0b230110-0e6c-4865-843e-618c7b49db6e
-Superblock backups stored on blocks: 
-	32768, 98304, 163840, 229376
-
-Allocating group tables: 0/8   done                            
-Writing inode tables: 0/8   done                            
-Creating journal (4096 blocks): done
-Writing superblocks and filesystem accounting information: 0/8   done
-
-
-### [3.2] nginx + journalctl
-
-### [4.1] DAC
-
-### [4.2] SELinux (ограничение Docker) + capabilities
-
-### [5.1] PAM deny root
-
-### [5.2] index.html (под mephi-admin) + curl
-
-### Генерация HTML-отчёта
-Готово: /data/mephi-web/index.html
--rw-rw-r-- 1 mephi-admin mephi-devs 14871 May 24 14:47 /data/mephi-web/index.html
-
-================================================================
-mephi-init finished at Sun May 24 14:47:55 UTC 2026
-================================================================
-================================================================
-mephi-init started at Sun May 24 14:58:08 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
- tcpdump
-E: Sub-process /usr/bin/dpkg returned an error code (1)
-
-### [2.2] DEB tcpdump (Ubuntu-эквивалент 'dnf download + rpm -i')
-Из кеша: /tmp/tcpdump_4.99.6-1_arm64.deb
-Processing triggers for man-db (2.12.0-4build2) ...
-Errors were encountered while processing:
- tcpdump
-
-### [3.1] Loop-диск + ext4 MEPHI_DATA + fstab
-
-### [3.2] nginx + journalctl
-
-### [4.1] DAC
-
-### [4.2] SELinux + capabilities
-
-### [5.1] PAM deny root
-
-### [5.2] index.html (под mephi-admin) + curl
-
-### Генерация HTML-отчёта
-Готово: /data/mephi-web/index.html
--rw-rw-r-- 1 mephi-admin mephi-devs 23663 May 24 14:58 /data/mephi-web/index.html
-
-================================================================
-mephi-init finished at Sun May 24 14:58:22 UTC 2026
-================================================================
-================================================================
-mephi-init started at Sun May 24 15:12:58 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
- tcpdump
-E: Sub-process /usr/bin/dpkg returned an error code (1)
-
-### [2.2] DEB tcpdump (Ubuntu-эквивалент 'dnf download + rpm -i')
-Из кеша: /tmp/tcpdump_4.99.6-1_arm64.deb
-Processing triggers for man-db (2.12.0-4build2) ...
-Errors were encountered while processing:
- tcpdump
-
-### [3.1] Loop-диск + ext4 MEPHI_DATA + fstab
-
-### [3.2] nginx + journalctl
-
-### [4.1] DAC
-
-### [4.2] SELinux + capabilities
-
-### [5.1] PAM deny root
-
-### [5.2] index.html (под mephi-admin) + curl
-
-### Генерация HTML-отчёта
-Готово: /data/mephi-web/index.html
--rw-rw-r-- 1 mephi-admin mephi-devs 30878 May 24 15:13 /data/mephi-web/index.html
-
-================================================================
-mephi-init finished at Sun May 24 15:13:12 UTC 2026
-================================================================
-================================================================
-mephi-init started at Sun May 24 15:15:02 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (783c3734-c20f-4936-8cea-134aa316b07b) successfully added.
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
-kpartx is already the newest version (0.9.4-5ubuntu8.1).
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-
-### [2.2] DEB tcpdump (Ubuntu-эквивалент 'dnf download + rpm -i')
-Из кеша: /tmp/tcpdump_4.99.6-1_arm64.deb
-Processing triggers for man-db (2.12.0-4build2) ...
-Errors were encountered while processing:
- tcpdump
-
-### [3.1] Loop-диск + ext4 MEPHI_DATA + fstab
-mke2fs 1.47.0 (5-Feb-2023)
-Discarding device blocks:      0/261888             done                            
-Creating filesystem with 261888 4k blocks and 65536 inodes
-Filesystem UUID: 02a037a8-6acf-45a3-86de-2d3655b38e38
-Superblock backups stored on blocks: 
-	32768, 98304, 163840, 229376
-
-Allocating group tables: 0/8   done                            
-Writing inode tables: 0/8   done                            
-Creating journal (4096 blocks): done
-Writing superblocks and filesystem accounting information: 0/8   done
-
-
-### [3.2] nginx + journalctl
-
-### [4.1] DAC
-
-### [4.2] SELinux (ограничение Docker) + capabilities
-
-### [5.1] PAM deny root
-
-### [5.2] index.html (под mephi-admin) + curl
-
-### Генерация HTML-отчёта
-Готово: /data/mephi-web/index.html
--rw-rw-r-- 1 mephi-admin mephi-devs 14872 May 24 15:15 /data/mephi-web/index.html
-
-================================================================
-mephi-init finished at Sun May 24 15:15:18 UTC 2026
-================================================================
-================================================================
-mephi-init started at Sun May 24 15:23:52 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (17f9faa1-a1d1-433b-a01d-74f1d99a1283) successfully added.
-
-### [1.2] network_check.txt
-
-### [2.1] Пакеты: nginx, tcpdump, libcap2-bin
-kpartx is already the newest version (0.9.4-5ubuntu8.1).
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-
-### [2.2] DEB tcpdump (Ubuntu-эквивалент 'dnf download + rpm -i')
-Из кеша: /tmp/tcpdump_4.99.6-1_arm64.deb
-Processing triggers for man-db (2.12.0-4build2) ...
-Errors were encountered while processing:
- tcpdump
-
-### [3.1] Loop-диск + ext4 MEPHI_DATA + fstab
-losetup: /var/sdb.img: failed to set up loop device: No such file or directory
-Error: Could not stat device  - No such file or directory.
-Error: Could not stat device  - No such file or directory.
-mke2fs 1.47.0 (5-Feb-2023)
-The file /dev/mapper/p1 does not exist and no size was specified.
-mount: /data/mephi-web: special device /dev/mapper/p1 does not exist.
-       dmesg(1) may have more information after failed mount system call.
-
-### [3.2] nginx + journalctl
-
-### [4.1] DAC
-
-### [4.2] SELinux + capabilities
-
-### [5.1] PAM deny root
-
-### [5.2] index.html (под mephi-admin) + curl
-
-### Генерация HTML-отчёта
-Готово: /data/mephi-web/index.html
--rw-rw-r-- 1 mephi-admin mephi-devs 36618 May 24 15:24 /data/mephi-web/index.html
-
-================================================================
-mephi-init finished at Sun May 24 15:24:14 UTC 2026
-================================================================
-================================================================
-mephi-init started at Tue Jun  2 20:36:08 UTC 2026
-================================================================
-
-### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (eb943a75-dd16-40a0-9b2d-f007f0538ece) successfully added.
+Connection 'static-eth0' (99f6a785-78e4-4df1-b3d8-877a0ceaaea6) successfully added.
 
 ### [1.2] network_check.txt
 
@@ -354,7 +21,7 @@ Errors were encountered while processing:
 mke2fs 1.47.0 (5-Feb-2023)
 Discarding device blocks:      0/261888             done                            
 Creating filesystem with 261888 4k blocks and 65536 inodes
-Filesystem UUID: eddb9ac0-4521-486c-a985-8b9bc6adff45
+Filesystem UUID: 2e6fe7d2-905f-4188-8d32-fb1b22a2a5c9
 Superblock backups stored on blocks: 
 	32768, 98304, 163840, 229376
 
@@ -376,17 +43,17 @@ Writing superblocks and filesystem accounting information: 0/8   done
 
 ### Генерация HTML-отчёта
 Готово: /data/mephi-web/index.html
--rw-rw-r-- 1 mephi-admin mephi-devs 36797 Jun  2 20:36 /data/mephi-web/index.html
+-rw-rw-r-- 1 mephi-admin mephi-devs 36795 Jun  7 19:28 /data/mephi-web/index.html
 
 ================================================================
-mephi-init finished at Tue Jun  2 20:36:27 UTC 2026
+mephi-init finished at Sun Jun  7 19:28:33 UTC 2026
 ================================================================
 ================================================================
-mephi-init started at Tue Jun  2 20:45:42 UTC 2026
+mephi-init started at Sun Jun  7 19:33:56 UTC 2026
 ================================================================
 
 ### [1.1] Сеть: nmcli + ifcfg-eth0 + hostname
-Connection 'static-eth0' (e6c18385-0b4d-490a-8774-55d916c2bb19) successfully added.
+Connection 'static-eth0' (ca9c9ac1-f8b4-4f4b-a50a-ea82d9687b61) successfully added.
 
 ### [1.2] network_check.txt
 
@@ -421,8 +88,8 @@ mount: /data/mephi-web: special device /dev/mapper/p1 does not exist.
 
 ### Генерация HTML-отчёта
 Готово: /data/mephi-web/index.html
--rw-rw-r-- 1 mephi-admin mephi-devs 36583 Jun  2 20:45 /data/mephi-web/index.html
+-rw-rw-r-- 1 mephi-admin mephi-devs 36577 Jun  7 19:34 /data/mephi-web/index.html
 
 ================================================================
-mephi-init finished at Tue Jun  2 20:45:59 UTC 2026
+mephi-init finished at Sun Jun  7 19:34:16 UTC 2026
 ================================================================

@@ -17,6 +17,7 @@ services:
       # rationale-блоков без ребилда. При отсутствии (например, при `docker run`
       # без compose) используется версия, скопированная в образ из Dockerfile.
       - ./content:/opt/mephi-content:ro
+      - /etc/mephi/student.env
     tmpfs:
       - /run
       - /run/lock

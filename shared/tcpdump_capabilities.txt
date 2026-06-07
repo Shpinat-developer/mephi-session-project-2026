@@ -20,7 +20,7 @@ PF_PACKET-сокетов, `cap_net_admin` для управления интер
 
 === ls -la (без SUID) ===
 -rwxr-xr-x 1 root root 1282240 Feb 27 18:23 /usr/bin/tcpdump
-lrwxrwxrwx 1 root root      16 Jun  2 20:45 /usr/sbin/tcpdump -> /usr/bin/tcpdump
+lrwxrwxrwx 1 root root      16 Jun  7 19:34 /usr/sbin/tcpdump -> /usr/bin/tcpdump
 
 === Проверка под mephi-admin ===
 tcpdump version 4.99.6
@@ -30,7 +30,7 @@ OpenSSL 3.0.13 30 Jan 2024
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
-20:45:55.355399 IP 192.168.91.100 > 192.168.91.1: ICMP echo request, id 6, seq 1, length 64
+19:34:09.371142 IP 192.168.91.100 > 192.168.91.1: ICMP echo request, id 24, seq 1, length 64
 1 packet captured
 2 packets received by filter
 0 packets dropped by kernel
