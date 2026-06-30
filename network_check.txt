@@ -1,0 +1,19 @@
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=64 time=41.6 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=64 time=43.7 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=64 time=42.2 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=64 time=43.6 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3004ms
+rtt min/avg/max/mdev = 41.596/42.785/43.678/0.894 ms
+PING 10.0.2.2 (10.0.2.2) 56(84) bytes of data.
+64 bytes from 10.0.2.2: icmp_seq=1 ttl=64 time=0.401 ms
+64 bytes from 10.0.2.2: icmp_seq=2 ttl=64 time=0.602 ms
+64 bytes from 10.0.2.2: icmp_seq=3 ttl=64 time=0.890 ms
+64 bytes from 10.0.2.2: icmp_seq=4 ttl=64 time=0.663 ms
+
+--- 10.0.2.2 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3060ms
+rtt min/avg/max/mdev = 0.401/0.639/0.890/0.174 ms
+default via 10.0.2.2 dev enp0s3 proto static metric 100 
